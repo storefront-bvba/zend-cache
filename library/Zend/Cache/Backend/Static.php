@@ -393,7 +393,6 @@ class Zend_Cache_Backend_Static
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      * @return boolean true if no problem
-     * @throws Zend_Exception
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -402,7 +401,7 @@ class Zend_Cache_Backend_Static
             case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
                 if (empty($tags)) {
-                    throw new Zend_Exception('Cannot use tag matching modes as no tags were defined');
+                    throw new \RuntimeException('Cannot use tag matching modes as no tags were defined');
                 }
                 if ($this->_tagged === null && $tagged = $this->getInnerCache()->load(self::INNER_CACHE_NAME)) {
                     $this->_tagged = $tagged;
@@ -442,7 +441,7 @@ class Zend_Cache_Backend_Static
                 break;
             case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
                 if (empty($tags)) {
-                    throw new Zend_Exception('Cannot use tag matching modes as no tags were defined');
+                    throw new \RuntimeException('Cannot use tag matching modes as no tags were defined');
                 }
                 if ($this->_tagged === null) {
                     $tagged = $this->getInnerCache()->load(self::INNER_CACHE_NAME);
