@@ -41,8 +41,8 @@ interface Zend_Cache_Backend_Interface
      *
      * Note : return value is always "string" (unserialization is done by the core not by the backend)
      *
-     * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param string $id Cache id
+     * @param boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string|false cached datas
      */
     public function load($id, $doNotTestCacheValidity = false);
@@ -50,8 +50,8 @@ interface Zend_Cache_Backend_Interface
     /**
      * Test if a cache is available or not (for the given id)
      *
-     * @param  string $id cache id
-     * @return mixed|false (a cache is not available) or "last modified" timestamp (int) of the available cache record
+     * @param string $id cache id
+     * @return int|null (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     public function test($id);
 
@@ -61,18 +61,18 @@ interface Zend_Cache_Backend_Interface
      * Note : $data is always "string" (serialization is done by the
      * core not by the backend)
      *
-     * @param  string $data            Datas to cache
-     * @param  string $id              Cache id
-     * @param  array $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int   $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param string $data Datas to cache
+     * @param string $id Cache id
+     * @param array $tags Array of strings, the cache record will be tagged by each string entry
+     * @param int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @return boolean true if no problem
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false);
+    public function save($data, $id, $tags = [], $specificLifetime = false);
 
     /**
      * Remove a cache record
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      * @return boolean True if no problem
      */
     public function remove($id);
@@ -90,10 +90,10 @@ interface Zend_Cache_Backend_Interface
      * Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG => remove cache entries matching any given tags
      *                                               ($tags can be an array of strings or a single string)
      *
-     * @param  string $mode Clean mode
-     * @param  array  $tags Array of tags
+     * @param string $mode Clean mode
+     * @param array $tags Array of tags
      * @return boolean true if no problem
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array());
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = []);
 
 }

@@ -41,25 +41,25 @@ class Zend_Cache_Backend
      *
      * @var array directives
      */
-    protected $_directives = array(
+    protected $_directives = [
         'lifetime' => 3600,
-        'logging'  => false,
-        'logger'   => null
-    );
+        'logging' => false,
+        'logger' => null
+    ];
 
     /**
      * Available options
      *
      * @var array available options
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Constructor
      *
-     * @param  array $options Associative array of options
+     * @param array $options Associative array of options
      */
-    public function __construct(array $options = array())
+    public function __construct($options = [])
     {
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
@@ -69,9 +69,9 @@ class Zend_Cache_Backend
     /**
      * Set the frontend directives
      *
-     * @param  array $directives Assoc of directives
-     * @throws Zend_Cache_Exception
+     * @param array $directives Assoc of directives
      * @return void
+     * @throws Zend_Cache_Exception
      */
     public function setDirectives($directives)
     {
@@ -93,10 +93,10 @@ class Zend_Cache_Backend
     /**
      * Set an option
      *
-     * @param  string $name
-     * @param  mixed  $value
-     * @throws Zend_Cache_Exception
+     * @param string $name
+     * @param mixed $value
      * @return void
+     * @throws Zend_Cache_Exception
      */
     public function setOption($name, $value)
     {
@@ -113,8 +113,8 @@ class Zend_Cache_Backend
      * Returns an option
      *
      * @param string $name Optional, the options name to return
-     * @throws Zend_Cache_Exceptions
      * @return mixed
+     * @throws Zend_Cache_Exceptions
      */
     public function getOption($name)
     {
@@ -137,7 +137,7 @@ class Zend_Cache_Backend
      * if $specificLifetime is not false, the given specific life time is used
      * else, the global lifetime is used
      *
-     * @param  int $specificLifetime
+     * @param int $specificLifetime
      * @return int Cache life time
      */
     public function getLifetime($specificLifetime)
@@ -153,8 +153,8 @@ class Zend_Cache_Backend
      *
      * DEPRECATED : use getCapabilities() instead
      *
-     * @deprecated
      * @return boolean
+     * @deprecated
      */
     public function isAutomaticCleaningAvailable()
     {
@@ -171,10 +171,11 @@ class Zend_Cache_Backend
      */
     public function getTmpDir()
     {
-        foreach (array($_ENV, $_SERVER) as $tab) {
-            foreach (array('TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot') as $key) {
+        $tmpdir = [];
+        foreach ([$_ENV, $_SERVER] as $tab) {
+            foreach (['TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot'] as $key) {
                 if (isset($tab[$key]) && is_string($tab[$key])) {
-                    if (($key == 'windir') or ($key == 'SystemRoot')) {
+                    if (($key == 'windir') || ($key == 'SystemRoot')) {
                         $dir = realpath($tab[$key] . '\\temp');
                     } else {
                         $dir = realpath($tab[$key]);
@@ -237,8 +238,8 @@ class Zend_Cache_Backend
      * is available.
      * Create a default log object if none is set.
      *
-     * @throws Zend_Cache_Exception
      * @return void
+     * @throws Zend_Cache_Exception
      */
     protected function _loggerSanity()
     {
@@ -254,9 +255,9 @@ class Zend_Cache_Backend
         }
 
         // Create a default logger to the standard output stream
-        // require_once 'Zend/Log.php';
-        // require_once 'Zend/Log/Writer/Stream.php';
-        // require_once 'Zend/Log/Filter/Priority.php';
+        #require_once 'Zend/Log.php';
+        #require_once 'Zend/Log/Writer/Stream.php';
+        #require_once 'Zend/Log/Filter/Priority.php';
         $logger = new Zend_Log(new Zend_Log_Writer_Stream('php://output'));
         $logger->addFilter(new Zend_Log_Filter_Priority(Zend_Log::WARN, '<='));
         $this->_directives['logger'] = $logger;
@@ -265,8 +266,8 @@ class Zend_Cache_Backend
     /**
      * Log a message at the WARN (4) priority.
      *
-     * @param  string $message
-     * @param  int    $priority
+     * @param string $message
+     * @param int $priority
      * @return void
      */
     protected function _log($message, $priority = 4)
