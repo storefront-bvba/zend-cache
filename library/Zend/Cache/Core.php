@@ -332,10 +332,9 @@ class Zend_Cache_Core
      * @param array $tags Cache tags
      * @param int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @param int $priority integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
-     * @return boolean True if no problem
      * @throws Zend_Cache_Exception
      */
-    public function save($data, $id = null, array $tags = [], $specificLifetime = false, $priority = 8)
+    public function save($data, $id = null, array $tags = [], $specificLifetime = false, $priority = 8): bool
     {
         if (!$this->_options['caching']) {
             return true;
