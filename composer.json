@@ -9,8 +9,9 @@
   ],
   "license": "BSD-3-Clause",
   "require": {
-    "php": ">=7.4",
-    "colinmollenhour/cache-backend-redis": "^1.16"
+    "php": ">=8.0",
+    "psr/simple-cache": "^3.0",
+    "colinmollenhour/cache-backend-redis": "^1.17"
   },
   "autoload": {
     "psr-0": {
