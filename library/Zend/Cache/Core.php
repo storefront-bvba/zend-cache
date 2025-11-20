@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -130,8 +131,9 @@ class Zend_Cache_Core
             $options = $options->toArray();
         }
         if (!is_array($options)) {
-            Zend_Cache::throwException("Options passed were not an array"
-                . " or Zend_Config instance.");
+            Zend_Cache::throwException(
+                "Options passed were not an array" . " or Zend_Config instance."
+            );
         }
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
@@ -175,7 +177,6 @@ class Zend_Cache_Core
             $this->_extendedBackend = true;
             $this->_backendCapabilities = $this->_backend->getCapabilities();
         }
-
     }
 
     /**
@@ -271,8 +272,8 @@ class Zend_Cache_Core
     {
         $this->_options['lifetime'] = $newLifetime;
         $this->_backend->setDirectives([
-            'lifetime' => $newLifetime
-        ]);
+                                           'lifetime' => $newLifetime
+                                       ]);
     }
 
     /**
@@ -359,8 +360,7 @@ class Zend_Cache_Core
         if ($this->_options['automatic_cleaning_factor'] > 0) {
             $rand = rand(1, $this->_options['automatic_cleaning_factor']);
             if ($rand == 1) {
-                //  new way                 || deprecated way
-                if ($this->_extendedBackend || method_exists($this->_backend, 'isAutomaticCleaningAvailable')) {
+                if ($this->_extendedBackend) {
                     $this->_log("Zend_Cache_Core::save(): automatic cleaning running", 7);
                     $this->clean(Zend_Cache::CLEANING_MODE_OLD);
                 } else {
@@ -442,11 +442,13 @@ class Zend_Cache_Core
         if (!$this->_options['caching']) {
             return true;
         }
-        if (!in_array($mode, [Zend_Cache::CLEANING_MODE_ALL,
+        if (!in_array($mode, [
+            Zend_Cache::CLEANING_MODE_ALL,
             Zend_Cache::CLEANING_MODE_OLD,
             Zend_Cache::CLEANING_MODE_MATCHING_TAG,
             Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG,
-            Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG])) {
+            Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG
+        ])) {
             Zend_Cache::throwException('Invalid cleaning mode');
         }
         $this->_validateTagsArray($tags);
@@ -710,9 +712,8 @@ class Zend_Cache_Core
         }
 
         // Create a default logger to the standard output stream
-        
-        
-        
+
+
         $logger = new Zend_Log(new Zend_Log_Writer_Stream('php://output'));
         $logger->addFilter(new Zend_Log_Filter_Priority(Zend_Log::WARN, '<='));
         $this->_options['logger'] = $logger;
