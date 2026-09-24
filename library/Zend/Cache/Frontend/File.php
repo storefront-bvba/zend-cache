@@ -63,7 +63,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * - if set to false (default), an exception is thrown if there is a missing master file
      * @var array available options
      */
-    protected $_specificOptions = [
+    protected array $_specificOptions = [
         'master_file' => null,
         'master_files' => null,
         'master_files_mode' => 'OR',

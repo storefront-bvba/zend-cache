@@ -81,7 +81,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      *
      * @var array options
      */
-    protected $_specificOptions = [
+    protected array $_specificOptions = [
         'http_conditional' => false,
         'debug_header' => false,
         'content_type_memorization' => false,

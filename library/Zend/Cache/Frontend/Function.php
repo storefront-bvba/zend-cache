@@ -49,7 +49,7 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
      *
      * @var array options
      */
-    protected $_specificOptions = [
+    protected array $_specificOptions = [
         'cache_by_default' => true,
         'cached_functions' => [],
         'non_cached_functions' => []

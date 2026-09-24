@@ -52,7 +52,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
      *
      * @var array available options
      */
-    protected $_specificOptions = [
+    protected array $_specificOptions = [
         'cached_entity' => null,
         'cache_by_default' => true,
         'cached_methods' => [],
