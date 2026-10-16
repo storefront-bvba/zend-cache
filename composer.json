@@ -8,6 +8,7 @@
     "cache"
   ],
   "license": "BSD-3-Clause",
+  "abandoned": "storefront/cache",
   "require": {
     "php": ">=8.0",
     "psr/simple-cache": "^3.0",
